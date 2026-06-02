@@ -1,0 +1,19 @@
+name: Deploy to Deno Deploy
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/deployctl@v1
+        with:
+          project: young-egret-45
+          entrypoint: main.ts
+        env:
+          DENO_DEPLOY_TOKEN: ${{ secrets.DENO_DEPLOY_TOKEN }}
